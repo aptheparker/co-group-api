@@ -41,7 +41,7 @@ router.get("/:userId", UserController.getUser);
  *            properties:
  *              name:
  *                type: string
- *              age: 
+ *              age:
  *                type: string
  *      responses:
  *       200:
