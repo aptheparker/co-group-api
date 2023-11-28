@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
+app.use(express.json()); // for parsing application/json
 
+// Swagger
 const { swaggerUi, specs } = require("./swagger/swagger")
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs))
+app.use("/api", swaggerUi.serve, swaggerUi.setup(specs))
 
+// Routes
 const authRoutes = require("./routes/AuthRoute");
 const userRoutes = require("./routes/UserRoute");
-
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 

@@ -5,57 +5,48 @@ const UserController = require("../controllers/UserController");
 
 /**
  * @swagger
- *  /:userId:
+ *  /user/{userId}:
  *    get:
- *      summary: 사용자 정보 조회
  *      tags:
  *      - User
  *      description: 사용자 정보 조회
- *      produces:
- *      - application/json
  *      parameters:
  *        - in: path
  *          name: userId
  *          required: true
- *          schema:
- *            type: string
- *            description: 유저 아이디
+ *          type: integer
  *      responses:
  *       200:
  *        description: 사용자 정보 조회 성공
  */
-router.get("/", UserController.getUser);
+router.get("/:userId", UserController.getUser);
 
 /**
  * @swagger
- *  /:userId:
+ *  /user/{userId}:
  *    put:
- *      summary: 사용자 정보 수정
  *      tags:
  *      - User
  *      description: 사용자 정보 수정
- *      produces:
- *      - application/json
  *      parameters:
  *        - in: path
  *          name: userId
  *          required: true
- *          schema:
- *            type: string
+ *          type: integer
  *        - in: body
- *          name: Body
- *          required: true
+ *          name: body
+ *          required: false
+ *          description: 수정할 사용자 정보
  *          schema:
- *            type: string
- *            required:
- *              - userId
  *            properties:
  *              name:
+ *                type: string
+ *              age: 
  *                type: string
  *      responses:
  *       200:
  *        description: 사용자 정보 수정 성공
  */
-router.put("/", UserController.updateUser);
+router.put("/:userId", UserController.updateUser);
 
 module.exports = router;

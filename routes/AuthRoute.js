@@ -5,9 +5,8 @@ const AuthController = require("../controllers/AuthController");
 
 /**
  * @swagger
- *  /:userId:
+ *  /auth/sign-up:
  *    post:
- *      summary: 로그인
  *      tags:
  *      - Auth
  *      description: 로그인
@@ -15,9 +14,10 @@ const AuthController = require("../controllers/AuthController");
  *      - application/json
  *      parameters:
  *        - in: body
- *          name: Body
+ *          name: body
+ *          required: true
+ *          description: 로그인 정보
  *          schema:
- *            type: string
  *            required:
  *              - username
  *              - password
