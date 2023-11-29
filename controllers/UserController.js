@@ -1,23 +1,18 @@
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
+const User = require("../models/models");
 require("dotenv").config();
 
 exports.getUser = async (req, res) => {
   const { userId } = req.params;
 
-  const uri = process.env.MONGODB_URL;
-  const client = new MongoClient(uri);
+  const user = await User.findOne({ userId: userId });
 
-  const db = client.db("co-group");
-  const collection = db.collection("user");
-
-  const user = await collection.findOne({ userId: userId });
-  
-  res.send(`Get user route ${user.name}`);
+  res.send(`Get user route ${user}`);
 };
 
 exports.updateUser = (req, res) => {
   const { userId } = req.params;
-  const { name, age } = req.body;
+  const { name, age, username, password } = req.body;
 
-  res.send(`Update user route ${userId} ${name} ${age}`);
+  res.send(`Update user route ${userId} ${name} ${age} ${username} ${password}`);
 };

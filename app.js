@@ -2,28 +2,22 @@ const express = require("express");
 const app = express();
 app.use(express.json()); // for parsing application/json
 require("dotenv").config();
+const { MONGO_URI } = process.env;
 
 // Swagger
 const { swaggerUi, specs } = require("./swagger/swagger");
 app.use("/api", swaggerUi.serve, swaggerUi.setup(specs));
 
-const { MongoClient } = require("mongodb");
-
-async function main() {
-  const uri = process.env.MONGODB_URL;
-  const client = new MongoClient(uri);
-
+const mongoose = require("mongoose");
+async function connect() {
   try {
-    await client.connect()
-    console.log("Database Connected");
+    await mongoose.connect(MONGO_URI);
+    console.log("MongoDB Connected");
   } catch (e) {
     console.error(e);
-  } finally {
-    await client.close();
   }
 }
-
-main().catch(console.error);
+connect();
 
 // Routes
 const authRoutes = require("./routes/AuthRoute");
