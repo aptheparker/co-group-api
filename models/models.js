@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
   name: String,
-  username: String,
+  username: { type: String, unique: true},
   password: String,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

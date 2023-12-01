@@ -1,39 +1,91 @@
 const mongoose = require("mongoose");
-const { User, Semester } = require("../models/models");
+const ObjectId = mongoose.Types.ObjectId;
+const { User } = require("../models/models");
 require("dotenv").config();
 
-exports.getUser = async (req, res) => {
-  const { userId } = req.params;
+exports.createUser = async (req, res) => {
+  //#swagger.tags = ['User']
+  //#swagger.description = '사용자 생성'
+  /*#swagger.parameters['body'] = {
+    in: 'body',
+    required: true,
+    description: '생성할 사용자 정보',
+    schema: {
+      name: "홍길동",
+      username: "hong",
+      password: "123"
+    }
+  } */ 
+  const { name, username, password } = req.body;
 
-  const user = await User.findOne({ userId: userId });
+  if (!name || !username || !password) {
+    return res.status(400).send({ err: "Data not enough" });
+  } else if (
+    typeof name !== "string" ||
+    typeof username !== "string" ||
+    typeof password !== "string"
+  ) {
+    return res.status(400).send({ err: "Data type wrong" });
+  }
 
-  // res.send(`Get user route ${user}`);
+  const duplicatedUser = await User.findOne({ username });
 
-  const semester = await Semester.create({
-    name: "1학기",
-    members: [{
-      name: "a",
-      gender: "M",
-      birth: "1999-01-01",
-    }],
-    groups: [
-      {
-        name: "1조",
-      },
-      {
-        name: "2조",
-      },
-    ],
-  });
-
-  res.send(`Get user route ${semester}`);
+  if (duplicatedUser) {
+    return res.status(409).send({ err: "Username already exists" });
+  } else {
+    const user = await User.create({ name, username, password });
+    res.status(201).send({ success: "User created", user });
+  }
 };
 
-exports.updateUser = (req, res) => {
-  const { userId } = req.params;
-  const { name, age, username, password } = req.body;
+exports.getUser = async (req, res) => {
+  //#swagger.tags = ['User']
+  //#swagger.description = '사용자 정보 조회'
+  /*#swagger.parameters['userId'] = {
+    in: 'path',
+    required: true,
+    description: '사용자 아이디',
+    type: string
+  } */
+  const userId = new ObjectId(req.params.userId);
 
-  res.send(
-    `Update user route ${userId} ${name} ${age} ${username} ${password}`
+  const user = await User.findOne({ _id: userId });
+  if (!user) {
+    return res.status(404).send({ err: "User not found" });
+  }
+
+  res.status(200).send({ user });
+};
+
+exports.updateUser = async (req, res) => {
+  //#swagger.tags = ['User']
+  //#swagger.description = '사용자 정보 수정'
+  /*#swagger.parameters['userId'] = {
+    in: 'path',
+    required: true,
+    description: '사용자 아이디',
+    type: 'string'
+  } */
+  /*#swagger.parameters['body'] = {
+    in: 'body',
+    required: true,
+    description: '수정할 사용자 정보',
+    schema: {
+      name: "홍길동",
+    }
+  } */
+  const userId = new ObjectId(req.params.userId);
+  const { name, age } = req.body;
+
+  const user = await User.findOne({ _id: userId });
+  if (!user) {
+    return res.status(404).send({ err: "User not found" });
+  }
+
+  const updatedUser = await User.updateOne(
+    { _id: userId },
+    { name, updatedAt: Date.now() }
   );
+
+  res.status(200).send({ success: "User updated", updatedUser });
 };
