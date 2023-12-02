@@ -129,7 +129,7 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "사용자 아이디"
+            "description": "사용자 ID"
           },
           {
             "name": "body",
@@ -207,6 +207,101 @@
           },
           "400": {
             "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/semester/{semesterId}": {
+      "get": {
+        "tags": [
+          "Semester"
+        ],
+        "description": "학기별 조회",
+        "parameters": [
+          {
+            "name": "semesterId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Semester"
+        ],
+        "description": "학기 정보 수정",
+        "parameters": [
+          {
+            "name": "semesterId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "학기 ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "수정할 학기 정보",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "2021년 1학기"
+                },
+                "startDate": {
+                  "type": "string",
+                  "example": "2021-03-02"
+                },
+                "endDate": {
+                  "type": "string",
+                  "example": "2021-06-15"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Semester"
+        ],
+        "description": "학기 삭제",
+        "parameters": [
+          {
+            "name": "semesterId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }

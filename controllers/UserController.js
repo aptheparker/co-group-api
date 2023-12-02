@@ -56,7 +56,7 @@ exports.updateUser = async (req, res) => {
   /*#swagger.parameters['userId'] = {
     in: 'path',
     required: true,
-    description: '사용자 아이디',
+    description: '사용자 ID',
     type: 'string'
   } */
   /*#swagger.parameters['body'] = {
@@ -68,7 +68,7 @@ exports.updateUser = async (req, res) => {
     }
   } */
   const userId = new ObjectId(req.params.userId);
-  const { name, age } = req.body;
+  const { name } = req.body;
 
   const user = await User.findOne({ _id: userId });
   if (!user) {
