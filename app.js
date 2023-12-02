@@ -26,8 +26,10 @@ connect();
 // Routes
 const authRoutes = require("./routes/AuthRoute");
 const userRoutes = require("./routes/UserRoute");
+const semesterRoutes = require("./routes/SemesterRoute");
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use("/semester", semesterRoutes);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

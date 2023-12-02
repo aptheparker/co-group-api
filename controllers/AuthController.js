@@ -19,10 +19,8 @@ exports.signIn = async (req, res) => {
 
   if (!username || !password) {
     return res.status(400).send({ err: "Data not enough" });
-  } else if (typeof username !== "string" || typeof password !== "string") {
-    return res.status(400).send({ err: "Data type wrong" });
-  }
-
+  } 
+  
   const user = await User.findOne({ username, password });
   if (user) {
     res.status(200).send({ success: "User signed in", user });

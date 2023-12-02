@@ -11,7 +11,9 @@ const userSchema = new Schema({
 });
 
 const semesterSchema = new Schema({
-  name: String,
+  name: { type: String, required: true },
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
   members: [{
     name: String,
     gender: String,

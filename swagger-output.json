@@ -156,6 +156,60 @@
           }
         }
       }
+    },
+    "/semester/list": {
+      "get": {
+        "tags": [
+          "Semester"
+        ],
+        "description": "학기 목록 조회",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/semester/": {
+      "post": {
+        "tags": [
+          "Semester"
+        ],
+        "description": "학기 생성",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "생성할 학기 정보",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "2021년 1학기"
+                },
+                "startDate": {
+                  "type": "string",
+                  "example": "2021-03-02"
+                },
+                "endDate": {
+                  "type": "string",
+                  "example": "2021-06-15"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
     }
   }
 }

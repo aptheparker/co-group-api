@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
 const { User } = require("../models/models");
-require("dotenv").config();
 
 exports.createUser = async (req, res) => {
   //#swagger.tags = ['User']
@@ -20,12 +19,6 @@ exports.createUser = async (req, res) => {
 
   if (!name || !username || !password) {
     return res.status(400).send({ err: "Data not enough" });
-  } else if (
-    typeof name !== "string" ||
-    typeof username !== "string" ||
-    typeof password !== "string"
-  ) {
-    return res.status(400).send({ err: "Data type wrong" });
   }
 
   const duplicatedUser = await User.findOne({ username });
