@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 app.use(express.json()); // for parsing application/json
 require("dotenv").config();
-const { MONGO_URI } = process.env;
 
 // Swagger
 const swaggerUi = require('swagger-ui-express')
@@ -10,7 +9,10 @@ const swaggerFile = require('./swagger-output.json')
 app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 
+// MongoDB
 const mongoose = require("mongoose");
+const { MONGO_URI } = process.env;
+
 async function connect() {
   try {
     await mongoose.connect(MONGO_URI);
