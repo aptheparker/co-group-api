@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
-const { User } = require("../models/models");
+const User = require("../models/User");
 
 exports.createUser = async (req, res) => {
   //#swagger.tags = ['User']

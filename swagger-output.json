@@ -306,27 +306,15 @@
         }
       }
     },
-    "/member/{semesterId}": {
+    "/member/": {
       "get": {
         "tags": [
           "Member"
         ],
-        "description": "학기별 멤버 조회",
-        "parameters": [
-          {
-            "name": "semesterId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "조회할 학기 ID"
-          }
-        ],
+        "description": "멤버 리스트 조회",
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       },
@@ -334,15 +322,8 @@
         "tags": [
           "Member"
         ],
-        "description": "학기별 멤버 생성",
+        "description": "멤버 생성",
         "parameters": [
-          {
-            "name": "semesterId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "생성할 학기 ID"
-          },
           {
             "name": "body",
             "in": "body",
@@ -353,7 +334,7 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "example": "홍길동"
+                  "example": "김철수"
                 },
                 "gender": {
                   "type": "string",
@@ -361,18 +342,15 @@
                 },
                 "birthDate": {
                   "type": "string",
-                  "example": "2021-01-01"
+                  "example": "1990-01-01"
                 }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
+          "201": {
+            "description": "Created"
           }
         }
       }

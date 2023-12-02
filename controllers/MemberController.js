@@ -1,54 +1,29 @@
 const mongoose = require("mongoose");
-const ObjectId = mongoose.Types.ObjectId;
-const {Semester} = require("../models/models");
+const Member = require("../models/Member");
 
-exports.getSemesterMemberList = async (req, res) => {
+exports.getMemberList = async (req, res) => {
   //#swagger.tags = ['Member']
-  //#swagger.description = "학기별 멤버 조회"
-  /*#swagger.parameters['semesterId'] = {
-    in: 'path',
-    required: true,
-    description: '조회할 학기 ID',
-    type: 'string'
-  } */
+  //#swagger.description = "멤버 리스트 조회"
 
-  const semesterId = new ObjectId(req.params.semesterId);
-  const semester = await Semester.findById(semesterId);
-  if (!semester) {
-    return res.status(404).send("Semester not found");
-  } else{
-    return res.status(200).send(semester.members);
-  }
+  const members = await Member.find({});
+  res.status(200).send({ members });
 }
 
-exports.createSemesterMember = async (req, res) => {
+exports.createMember = async (req, res) => {
   //#swagger.tags = ['Member']
-  //#swagger.description = "학기별 멤버 생성"
-  /*#swagger.parameters['semesterId'] = {
-    in: 'path',
-    required: true,
-    description: '생성할 학기 ID',
-    type: 'string'
-  } */
+  //#swagger.description = "멤버 생성"
   /*#swagger.parameters['body'] = {
     in: 'body',
     required: true,
     description: '생성할 멤버 정보',
     schema: {
-      name: '홍길동',
-      gender: 'M',
-      birthDate: '2021-01-01'
+      name: "김철수",
+      gender: "M",
+      birthDate: "1990-01-01"
     }
   } */
 
-  const semesterId = new ObjectId(req.params.semesterId);
-  const semester = await Semester.findById(semesterId);
-  if (!semester) {
-    return res.status(404).send("Semester not found");
-  } else{
-    const member = req.body;
-    semester.members.push(member);
-    await semester.save();
-    return res.status(200).send(member);
-  }
+  const newUserInfo = req.body
+  const member = await Member.create(newUserInfo);
+  res.status(201).send({ success: "Member created", member });
 }

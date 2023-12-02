@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
-const { Semester } = require('../models/models');
+const Semester = require('../models/Semester');
 
 exports.getSemesterList = async (req, res) => {
   //#swagger.tags = ['Semester']

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { User } = require("../models/models");
+const User = require("../models/User");
 
 exports.signIn = async (req, res) => {
 
