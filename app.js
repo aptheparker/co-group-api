@@ -2,16 +2,15 @@ const express = require("express");
 const app = express();
 app.use(express.json()); // for parsing application/json
 require("dotenv").config();
+const { PORT, MONGO_URI } = process.env;
 
 // Swagger
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger-output.json')
 app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
-
 // MongoDB
 const mongoose = require("mongoose");
-const { MONGO_URI } = process.env;
 
 async function connect() {
   try {
@@ -31,6 +30,6 @@ app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/semester", semesterRoutes);
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
