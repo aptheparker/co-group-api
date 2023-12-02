@@ -27,10 +27,12 @@ connect();
 const authRoutes = require("./routes/AuthRoute");
 const userRoutes = require("./routes/UserRoute");
 const semesterRoutes = require("./routes/SemesterRoute");
+const groupRoutes = require("./routes/GroupRoute");
 const memberRoutes = require("./routes/MemberRoute");
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/semester", semesterRoutes);
+app.use("/group", groupRoutes);
 app.use("/member", memberRoutes);
 
 
