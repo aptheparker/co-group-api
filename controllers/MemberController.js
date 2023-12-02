@@ -68,12 +68,13 @@ exports.updateMember = async (req, res) => {
 
   const memberId = new ObjectId(req.params.memberId);
   const updatedMemberInfo = req.body;
+
   const foundMember = await Member.findById(memberId);
   if (!foundMember) {
     return res.status(404).send({ error: "Member not found" });
   }
 
-  await Member.findByIdAndUpdate(memberId, updatedMemberInfo);
+  await Member.updateOne(memberId, {updatedMemberInfo, updatedAt: Date.now()});
   res.status(200).send({ success: "Member updated" });
 };
 
@@ -92,6 +93,6 @@ exports.deleteMember = async (req, res) => {
     return res.status(404).send({ error: "Member not found" });
   }
 
-  await Member.findByIdAndDelete(memberId);
+  await Member.deleteOne(memberId);
   res.status(200).send({ success: "Member deleted" });
 }

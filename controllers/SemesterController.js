@@ -82,30 +82,14 @@ exports.updateSemester = async (req, res) => {
   const semesterId = new ObjectId(req.params.semesterId);
   const updatedSemesterInfo = req.body;
 
-  if (
-    !updatedSemesterInfo.name ||
-    !updatedSemesterInfo.startDate ||
-    !updatedSemesterInfo.endDate
-  ) {
-    return res.status(400).send({ err: "Data not enough" });
-  } else if (updatedSemesterInfo.startDate > updatedSemesterInfo.endDate) {
-    return res.status(400).send({ err: "Start date must be before end date" });
+  const updatedSemester = await Semester.updateOne(
+    semesterId,
+    {updatedSemesterInfo, updateAt: Date.now()},
+  );
+  if (!updatedSemester) {
+    return res.status(404).send({ err: "Semester not found" });
   } else {
-    // change  updatedAt
-    const semester = await Semester.updateOne(
-      { _id: semesterId },
-      {
-        name: updatedSemesterInfo.name,
-        startDate: updatedSemesterInfo.startDate,
-        endDate: updatedSemesterInfo.endDate,
-        updatedAt: Date.now(),
-      }
-    );
-    if (!semester) {
-      return res.status(404).send({ err: "Semester not found" });
-    } else {
-      res.status(200).send({ success: "Semester updated", semester });
-    }
+    res.status(200).send({ success: "Semester updated", updatedSemester });
   }
 };
 
@@ -120,7 +104,7 @@ exports.deleteSemester = async (req, res) => {
   } */
 
   const semesterId = new ObjectId(req.params.semesterId);
-  const semester = await Semester.findByIdAndDelete(semesterId);
+  const semester = await Semester.deleteOne(semesterId);
 
   if (!semester) {
     return res.status(404).send({ err: "Semester not found" });

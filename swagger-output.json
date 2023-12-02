@@ -306,7 +306,7 @@
         }
       }
     },
-    "/member/": {
+    "/member/list": {
       "get": {
         "tags": [
           "Member"
@@ -317,7 +317,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/member/": {
       "post": {
         "tags": [
           "Member"
