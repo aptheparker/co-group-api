@@ -354,6 +354,100 @@
           }
         }
       }
+    },
+    "/member/{memberId}": {
+      "get": {
+        "tags": [
+          "Member"
+        ],
+        "description": "멤버 조회",
+        "parameters": [
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "조회할 멤버 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Member"
+        ],
+        "description": "멤버 정보 수정",
+        "parameters": [
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "수정할 멤버 ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "수정할 멤버 정보",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "김철수"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "M"
+                },
+                "birthDate": {
+                  "type": "string",
+                  "example": "1990-01-01"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Member"
+        ],
+        "description": "멤버 삭제",
+        "parameters": [
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "삭제할 멤버 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     }
   }
 }

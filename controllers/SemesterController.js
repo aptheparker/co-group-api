@@ -1,13 +1,16 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
-const Semester = require('../models/Semester');
+const Semester = require("../models/Semester");
 
 exports.getSemesterList = async (req, res) => {
   //#swagger.tags = ['Semester']
   //#swagger.description = '학기 목록 조회'
-  const semesterList = await Semester.find({}, { _id: 1, name: 1, startDate: 1, endDate: 1 });
+  const semesterList = await Semester.find(
+    {},
+    { _id: 1, name: 1, startDate: 1, endDate: 1 }
+  );
   res.status(200).send({ semesterList });
-}
+};
 
 exports.createSemester = async (req, res) => {
   //#swagger.tags = ['Semester']
@@ -24,7 +27,7 @@ exports.createSemester = async (req, res) => {
   } */
 
   const { name, startDate, endDate } = req.body;
-  
+
   if (!name || !startDate || !endDate) {
     return res.status(400).send({ err: "Data not enough" });
   } else if (startDate > endDate) {
@@ -35,7 +38,7 @@ exports.createSemester = async (req, res) => {
     const semester = await Semester.create({ name, startDate, endDate });
     res.status(201).send({ success: "Semester created", semester });
   }
-}
+};
 
 exports.getSemester = async (req, res) => {
   //#swagger.tags = ['Semester']
@@ -54,7 +57,7 @@ exports.getSemester = async (req, res) => {
   } else {
     res.status(200).send({ semester });
   }
-}
+};
 
 exports.updateSemester = async (req, res) => {
   //#swagger.tags = ['Semester']
@@ -75,23 +78,36 @@ exports.updateSemester = async (req, res) => {
       endDate: "2021-06-15"
     }
   } */
- 
-  const semesterId = new ObjectId(req.params.semesterId);
-  const { name, startDate, endDate } = req.body;
 
-  if (!name || !startDate || !endDate) {
+  const semesterId = new ObjectId(req.params.semesterId);
+  const updatedSemesterInfo = req.body;
+
+  if (
+    !updatedSemesterInfo.name ||
+    !updatedSemesterInfo.startDate ||
+    !updatedSemesterInfo.endDate
+  ) {
     return res.status(400).send({ err: "Data not enough" });
-  } else if (startDate > endDate) {
+  } else if (updatedSemesterInfo.startDate > updatedSemesterInfo.endDate) {
     return res.status(400).send({ err: "Start date must be before end date" });
   } else {
-    const semester = await Semester.findByIdAndUpdate(semesterId, { name, startDate, endDate });
+    // change  updatedAt
+    const semester = await Semester.updateOne(
+      { _id: semesterId },
+      {
+        name: updatedSemesterInfo.name,
+        startDate: updatedSemesterInfo.startDate,
+        endDate: updatedSemesterInfo.endDate,
+        updatedAt: Date.now(),
+      }
+    );
     if (!semester) {
       return res.status(404).send({ err: "Semester not found" });
     } else {
       res.status(200).send({ success: "Semester updated", semester });
     }
   }
-}
+};
 
 exports.deleteSemester = async (req, res) => {
   //#swagger.tags = ['Semester']
@@ -111,4 +127,4 @@ exports.deleteSemester = async (req, res) => {
   } else {
     res.status(200).send({ success: "Semester deleted", semester });
   }
-}
+};
