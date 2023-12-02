@@ -15,9 +15,9 @@ const semesterSchema = new Schema({
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   members: [{
-    name: String,
-    gender: String,
-    birth: { type: Date },
+    name:{ type: String, required: true },
+    gender: { type: String, required: true, enum: ["M", "F"]},
+    birthDate: { type: Date, required: true },
   }],
   groups: [{
     name: String,

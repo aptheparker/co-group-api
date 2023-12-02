@@ -305,6 +305,77 @@
           }
         }
       }
+    },
+    "/member/{semesterId}": {
+      "get": {
+        "tags": [
+          "Member"
+        ],
+        "description": "학기별 멤버 조회",
+        "parameters": [
+          {
+            "name": "semesterId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "조회할 학기 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Member"
+        ],
+        "description": "학기별 멤버 생성",
+        "parameters": [
+          {
+            "name": "semesterId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "생성할 학기 ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "생성할 멤버 정보",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "홍길동"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "M"
+                },
+                "birthDate": {
+                  "type": "string",
+                  "example": "2021-01-01"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     }
   }
 }

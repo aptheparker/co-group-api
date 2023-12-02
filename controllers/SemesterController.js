@@ -5,7 +5,7 @@ const { Semester } = require('../models/models');
 exports.getSemesterList = async (req, res) => {
   //#swagger.tags = ['Semester']
   //#swagger.description = '학기 목록 조회'
-  const semesterList = await Semester.find();
+  const semesterList = await Semester.find({}, { _id: 1, name: 1, startDate: 1, endDate: 1 });
   res.status(200).send({ semesterList });
 }
 

@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 app.use(express.json()); // for parsing application/json
+
 require("dotenv").config();
 const { PORT, MONGO_URI } = process.env;
 
@@ -26,9 +27,12 @@ connect();
 const authRoutes = require("./routes/AuthRoute");
 const userRoutes = require("./routes/UserRoute");
 const semesterRoutes = require("./routes/SemesterRoute");
+const memberRoutes = require("./routes/MemberRoute");
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/semester", semesterRoutes);
+app.use("/member", memberRoutes);
+
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
