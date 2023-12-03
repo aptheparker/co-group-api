@@ -102,7 +102,7 @@ exports.deleteGroup = async (req, res) => {
 
 // TODO: swagger memberIds example
 // TODO: update function refactoring
-exports.createGroupMember = async (req, res) => {
+exports.addGroupMember = async (req, res) => {
   //#swagger.tags = ['Group']
   //#swagger.description = "그룹 멤버 추가"
   /*#swagger.parameters['groupId'] = {

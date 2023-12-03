@@ -8,7 +8,7 @@ router.post('/', GroupController.createGroup);
 router.get('/:groupId', GroupController.getGroup);
 router.put('/:groupId', GroupController.updateGroup);
 router.delete('/:groupId', GroupController.deleteGroup);
-router.post('/:groupId/member', GroupController.createGroupMember);
+router.post('/:groupId/member', GroupController.addGroupMember);
 router.delete('/:groupId/member', GroupController.deleteGroupMember);
 
 module.exports = router;
