@@ -32,7 +32,7 @@ const memberRoutes = require("./routes/MemberRoute");
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/semester", semesterRoutes);
-// app.use("/group", groupRoutes);
+app.use("/group", groupRoutes);
 app.use("/member", memberRoutes);
 
 
